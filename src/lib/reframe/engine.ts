@@ -81,7 +81,7 @@ export function regenerate(combo: ComboId, prev: Shot[], round: number): RegenRe
     else if (before.id === s.id && before.caption === s.caption) status = "kept";
     else if (prevIds.has(s.id)) status = "adjusted";
     else status = "new";
-    const key = status === "locked" ? "locked" : status;
+    const key = status === "new" ? "added" : status;
     diff[key].push(s.id);
     return { ...s, status };
   });
