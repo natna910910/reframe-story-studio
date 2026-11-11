@@ -1,23 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ReFrameApp } from "@/components/reframe/ReFrameApp";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "ReFrame AI · 面向不同受众的短视频叙事重构" },
+      { name: "description", content: "同一组素材，面向不同受众讲出不同的故事。锁定重要镜头，仅重新生成其余部分。" },
+      { property: "og:title", content: "ReFrame AI · 短视频叙事重构工作台" },
+      { property: "og:description", content: "同一组素材，面向不同受众讲出不同的故事。" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: ReFrameApp,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
