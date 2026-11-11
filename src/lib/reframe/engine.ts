@@ -42,7 +42,7 @@ function fill(combo: ComboId, prev: Shot[], plan: Pair[], shift: number): Shot[]
   let k = 0;
   return prev.map((s) => {
     if (s.locked) return { ...s };
-    const pair = rotated[k++];
+    const pair = rotated[k++]!;
     return toShot(combo, pair);
   });
 }
@@ -95,6 +95,8 @@ export function moveShot(board: Shot[], index: number, dir: -1 | 1): Shot[] | nu
   if (j < 0 || j >= board.length) return null;
   if (board[index].locked || board[j].locked) return null;
   const next = board.map((s) => ({ ...s }));
-  [next[index], next[j]] = [next[j], next[index]];
+  const tmp = next[index]!;
+  next[index] = next[j]!;
+  next[j] = tmp;
   return next;
 }
