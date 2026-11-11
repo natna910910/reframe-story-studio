@@ -35,7 +35,7 @@ export function StoryPreview({ board, title, large = false }: { board: Shot[]; t
   const { idx, local } = useMemo(() => {
     let acc = 0;
     for (let i = 0; i < durations.length; i++) {
-      if (elapsed < acc + durations[i] || i === durations.length - 1) return { idx: i, local: elapsed - acc };
+      if (elapsed < acc + durations[i]! || i === durations.length - 1) return { idx: i, local: elapsed - acc };
       acc += durations[i]!;
     }
     return { idx: 0, local: 0 };
