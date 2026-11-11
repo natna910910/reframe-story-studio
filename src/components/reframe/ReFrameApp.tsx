@@ -551,7 +551,7 @@ const STATUS_LABEL: Record<string, { text: string; cls: string }> = {
 };
 
 function StoryboardStep(p: {
-  version: ComboId; setVersion: (v: ComboId) => void; board?: Shot[]; boards: Partial<Record<ComboId, Shot[]>>;
+  version: ComboId; setVersion: (v: ComboId) => void; board: Shot[] | undefined; boards: Partial<Record<ComboId, Shot[]>>;
   gen: { status: string; stage: number; target: ComboId }; regenLoading: boolean;
   compare: boolean; setCompare: (b: boolean) => void; selected: ShotId | null; setSelected: (s: ShotId) => void;
   onLock: (id: ShotId) => void; onMove: (i: number, d: -1 | 1) => void; onRegen: () => void; allLocked: boolean; lockedCount: number;

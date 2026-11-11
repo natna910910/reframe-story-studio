@@ -10,11 +10,11 @@ describe("ReFrame engine", () => {
 
   it("locked shot keeps id, slot and caption after regeneration; others change", () => {
     const board = initialStoryboard("A");
-    board[1] = { ...board[1], locked: true };
+    board[1] = { ...board[1]!, locked: true };
     const r = regenerate("A", board, 0);
     if (!r.ok) throw new Error("expected ok");
-    expect(r.board[1].id).toBe("S03");
-    expect(r.board[1].caption).toBe("先看看菜单和价格");
+    expect(r.board[1]!.id).toBe("S03");
+    expect(r.board[1]!.caption).toBe("先看看菜单和价格");
     expect(r.board.filter((s) => s.id === "S03")).toHaveLength(1);
     expect(r.board.map((s) => s.id + s.caption)).not.toEqual(board.map((s) => s.id + s.caption));
     const valid = new Set(ASSETS.map((a) => a.id));
@@ -28,7 +28,7 @@ describe("ReFrame engine", () => {
 
   it("cannot move across a locked shot", () => {
     const board = initialStoryboard("A");
-    board[2] = { ...board[2], locked: true };
+    board[2] = { ...board[2]!, locked: true };
     expect(moveShot(board, 1, 1)).toBeNull();
     expect(moveShot(board, 0, 1)?.map((s) => s.id)).toEqual(["S03", "S01", "S06", "S04", "S05"]);
   });

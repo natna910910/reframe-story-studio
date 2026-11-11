@@ -36,7 +36,7 @@ export function StoryPreview({ board, title, large = false }: { board: Shot[]; t
     let acc = 0;
     for (let i = 0; i < durations.length; i++) {
       if (elapsed < acc + durations[i] || i === durations.length - 1) return { idx: i, local: elapsed - acc };
-      acc += durations[i];
+      acc += durations[i]!;
     }
     return { idx: 0, local: 0 };
   }, [elapsed, durations]);
@@ -52,7 +52,7 @@ export function StoryPreview({ board, title, large = false }: { board: Shot[]; t
         <div className="absolute inset-x-0 top-0 flex gap-0.5 p-2">
           {board.map((s, i) => (
             <div key={s.id} className="h-0.5 flex-1 overflow-hidden rounded bg-card/40">
-              <div className="h-full bg-card" style={{ width: i < idx ? "100%" : i === idx ? `${(local / durations[i]) * 100}%` : "0%" }} />
+              <div className="h-full bg-card" style={{ width: i < idx ? "100%" : i === idx ? `${(local / durations[i]!) * 100}%` : "0%" }} />
             </div>
           ))}
         </div>
