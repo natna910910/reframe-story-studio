@@ -28,3 +28,4 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+- ReFrame demo logic (storyboard regeneration, lock/move rules) lives as pure functions in src/lib/reframe/engine.ts with tests; UI state stays in-memory in ReFrameApp — keeps lock constraints testable and avoids persistence.
