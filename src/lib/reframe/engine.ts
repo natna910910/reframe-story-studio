@@ -33,7 +33,7 @@ export type RegenResult =
   | { ok: false; reason: "all-locked" | "no-change" };
 
 const sameBoard = (a: Shot[], b: Shot[]) =>
-  a.length === b.length && a.every((s, i) => s.id === b[i].id && s.caption === b[i].caption);
+  a.length === b.length && a.every((s, i) => s.id === b[i]!.id && s.caption === b[i]!.caption);
 
 function fill(combo: ComboId, prev: Shot[], plan: Pair[], shift: number): Shot[] {
   const lockedIds = new Set(prev.filter((s) => s.locked).map((s) => s.id));
@@ -60,7 +60,7 @@ export function regenerate(combo: ComboId, prev: Shot[], round: number): RegenRe
   let usedRound = round;
   outer: for (let attempt = 0; attempt < plans.length * 5; attempt++) {
     const r = round + attempt;
-    const plan = plans[r % plans.length];
+    const plan = plans[r % plans.length]!;
     const shift = Math.floor(r / plans.length);
     const cand = fill(combo, prev, plan, shift);
     if (!sameBoard(cand, prev)) {
@@ -75,7 +75,7 @@ export function regenerate(combo: ComboId, prev: Shot[], round: number): RegenRe
   const nextIds = new Set(next.map((s) => s.id));
   const diff: RegenDiff = { added: [], removed: [], adjusted: [], kept: [], locked: [] };
   next = next.map((s, i) => {
-    const before = prev[i];
+    const before = prev[i]!;
     let status: ShotStatus;
     if (s.locked) status = "locked";
     else if (before.id === s.id && before.caption === s.caption) status = "kept";
@@ -93,7 +93,7 @@ export function regenerate(combo: ComboId, prev: Shot[], round: number): RegenRe
 export function moveShot(board: Shot[], index: number, dir: -1 | 1): Shot[] | null {
   const j = index + dir;
   if (j < 0 || j >= board.length) return null;
-  if (board[index].locked || board[j].locked) return null;
+  if (board[index]!.locked || board[j]!.locked) return null;
   const next = board.map((s) => ({ ...s }));
   const tmp = next[index]!;
   next[index] = next[j]!;

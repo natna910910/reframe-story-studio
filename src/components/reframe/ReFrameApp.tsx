@@ -691,8 +691,8 @@ function StoryboardStep(p: {
           const a = assetById(s.id);
           const st = s.status ? STATUS_LABEL[s.status] : null;
           const highlight = s.status === "adjusted" || s.status === "new";
-          const upOk = i > 0 && !s.locked && !p.board![i - 1].locked;
-          const downOk = i < p.board!.length - 1 && !s.locked && !p.board![i + 1].locked;
+          const upOk = i > 0 && !s.locked && !p.board![i - 1]!.locked;
+          const downOk = i < p.board!.length - 1 && !s.locked && !p.board![i + 1]!.locked;
           return (
             <li key={s.id} onClick={() => p.setSelected(s.id)}
               className={cn("animate-fade-up group flex cursor-pointer gap-3 rounded-[10px] border p-2.5 transition-colors",
